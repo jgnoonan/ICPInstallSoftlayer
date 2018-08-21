@@ -502,10 +502,7 @@ resource "null_resource" "copy_delete_gluster" {
 }
 
 module "icpprovision" {
-  #source = "github.com/pjgunadi/terraform-module-icp-deploy"
-  #source = "github.com/pjgunadi/terraform-module-icp-deploy?ref=2.1.0.3"
-  source = "/Users/daveweilert/terraform-module-icp-deploy"
-
+  source = "github.com/IBM-ICP-CoC/ICPTerraformInstall"
 
   //Connection IPs
   #icp-ips   = "${concat(ibm_compute_vm_instance.master.*.ipv4_address, ibm_compute_vm_instance.proxy.*.ipv4_address, ibm_compute_vm_instance.management.*.ipv4_address, ibm_compute_vm_instance.va.*.ipv4_address, ibm_compute_vm_instance.worker.*.ipv4_address)}"
@@ -570,9 +567,6 @@ module "icpprovision" {
   gluster_volume_type = "${var.gluster_volume_type}"
   heketi_admin_pwd    = "${var.heketi_admin_pwd}"
   generate_key        = true
-
-  #icp_pub_keyfile = "${tls_private_key.ssh.public_key_openssh}"
-  #icp_priv_keyfile = "${tls_private_key.ssh.private_key_pem"}"
 
   ssh_user = "${var.ssh_user}"
   ssh_key  = "${tls_private_key.ssh.private_key_pem}"
